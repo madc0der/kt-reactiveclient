@@ -8,13 +8,14 @@ import reactor.core.publisher.Mono
 
 @RestController
 class ExampleController(private val exampleService: ExampleService) {
-    @GetMapping("/test")
-    fun test(): String {
-        return "response from test method"
-    }
 
     @GetMapping("/call-api")
     fun callApi(): Mono<RestResponse> {
         return exampleService.callRestAPI()
+    }
+
+    @GetMapping("/call-api-error")
+    fun callApiError(): Mono<RestResponse> {
+        return exampleService.callRestAPIWrongUrl()
     }
 }
