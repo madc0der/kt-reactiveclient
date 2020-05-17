@@ -18,4 +18,9 @@ class ExampleController(private val exampleService: ExampleService) {
     fun callApiError(): Mono<RestResponse> {
         return exampleService.callRestAPIWrongUrl()
     }
+
+    @GetMapping("/test-handler")
+    fun testHandler(): Int {
+        return exampleService.callLowLevelService();
+    }
 }

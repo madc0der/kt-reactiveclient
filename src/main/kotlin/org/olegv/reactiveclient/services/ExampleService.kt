@@ -1,6 +1,7 @@
 package org.olegv.reactiveclient.services
 
 import org.olegv.reactiveclient.models.RestResponse
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
@@ -8,6 +9,9 @@ import java.util.logging.Logger
 
 @Service
 class ExampleService {
+
+    @Autowired
+    private lateinit var exampleLowLevelService: ExampleLowLevelService;
 
     companion object {
         @JvmStatic
@@ -31,5 +35,9 @@ class ExampleService {
                 .uri("https://jsonplaceholder.typicode.com")
                 .retrieve()
                 .bodyToMono(RestResponse::class.java)
+    }
+
+    fun callLowLevelService(): Int {
+        return exampleLowLevelService.getValue();
     }
 }
